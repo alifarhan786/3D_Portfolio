@@ -23,6 +23,11 @@ import {
     jobit,
     tripguide,
     threejs,
+    movieApp,
+    Ecom,
+    Youtube,
+    Portfolio,
+
   } from "../assets";
   
   export const navLinks = [
@@ -42,19 +47,19 @@ import {
   
   const services = [
     {
-      title: "Web Developer",
+      title: "React JS Developer",
       icon: web,
     },
     {
-      title: "React Native Developer",
+      title: "Frontend Developer",
       icon: mobile,
     },
     {
-      title: "Backend Developer",
+      title: "MERN Developer",
       icon: backend,
     },
     {
-      title: "Content Creator",
+      title: "Gamer",
       icon: creator,
     },
   ];
@@ -198,9 +203,9 @@ import {
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "Chicloom Clothing",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "At ChicLoom, we believe that fashion is an expression of individuality and confidence. Our curated collection features an array of stunning designs, from timeless classics to the latest trends, ensuring that you find the perfect outfit for any occasion.",
       tags: [
         {
           name: "react",
@@ -215,11 +220,11 @@ import {
           color: "pink-text-gradient",
         },
       ],
-      image: carrent,
+      image: Ecom,
       source_code_link: "https://github.com/",
     },
     {
-      name: "Job IT",
+      name: "Portfolio",
       description:
         "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
       tags: [
@@ -236,11 +241,11 @@ import {
           color: "pink-text-gradient",
         },
       ],
-      image: jobit,
+      image: Portfolio,
       source_code_link: "https://github.com/",
     },
     {
-      name: "Trip Guide",
+      name: "Movie App",
       description:
         "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
       tags: [
@@ -257,7 +262,28 @@ import {
           color: "pink-text-gradient",
         },
       ],
-      image: tripguide,
+      image: movieApp,
+      source_code_link: "https://github.com/",
+    },
+    {
+      name: "Youtube Clone",
+      description:
+        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      tags: [
+        {
+          name: "nextjs",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "supabase",
+          color: "green-text-gradient",
+        },
+        {
+          name: "css",
+          color: "pink-text-gradient",
+        },
+      ],
+      image: Youtube,
       source_code_link: "https://github.com/",
     },
   ];

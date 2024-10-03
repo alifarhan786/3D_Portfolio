@@ -25,7 +25,7 @@ const ProjectCard = ({
         <Tilt options={{ max: 45, scale: 1, speed: 450 }} className='bg-tertiary p-4 rounded-2xl sm:w-[360px] w-full'>
           <div>
             <img className='w-full h-full object-cover rounded-2xl' src={image} />
-            <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+            <div className='absolute inset-1 flex justify-end m-3 card-img_hover'>
               <motion.div  animate={{rotate:360}} transition={{duration : 1.5, repeat:Infinity}} onClick={() => window.open(source_code_link, "_blank")} className=' black-gradient hover:bg-black w-14 h-14 rounded-full flex justify-center items-center cursor-pointer '>
                 
                 <img

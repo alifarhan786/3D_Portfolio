@@ -29,9 +29,17 @@ import tesla from "./company/tesla.png";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
+import movieApp from './MovieApp.png'
+import Portfolio from './Portfolio.png'
+import Ecom from './Ecom.png'
+import Youtube from './Youtube.png'
 
 export {
   logo,
+  Youtube,
+  Ecom,
+  movieApp,
+  Portfolio,
   backend,
   creator,
   mobile,

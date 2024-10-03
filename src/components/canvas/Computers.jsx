@@ -4,25 +4,26 @@ import { Loader, OrbitControls, Preload, useGLTF } from '@react-three/drei'
 import CanvasLoader from '../Loader'
 
 
-const Computers = ({isMobile}) => {
+const Computers = ({ isMobile }) => {
   const computer = useGLTF("./desktop_pc/scene.gltf");
   return (
 
     <mesh>
-      <hemisphereLight intensity={3.5} groundColor='blue' />
+      <hemisphereLight intensity={5} groundColor='blue' />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
         penumbra={1}
-        intensity={1}
+        intensity={2}  // Increase this
         castShadow
         shadow-mapSize={1024}
       />
-      <pointLight intensity={1} />
+      <pointLight intensity={2} />  // Increase this too
+      <ambientLight intensity={0.5} />
       <primitive
         object={computer.scene}
-        scale={isMobile? 0.45: 0.75}
-        position={isMobile?[0,-1.5,-1.5]:[0, -3.45, -1.5]}
+        scale={isMobile ? 0.47 : 0.75}
+        position={isMobile ? [0, -2, -1.5] : [0, -3.45, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -32,34 +33,35 @@ const Computers = ({isMobile}) => {
 
 export const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false)
-  useEffect(()=>{
+  useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width:500px)")
     setIsMobile(mediaQuery.matches)
-    const handleMediaQuery =(event)=>{
+    const handleMediaQuery = (event) => {
       setIsMobile(event.matches);
     }
-
-    mediaQuery.addEventListener('change',handleMediaQuery)
-    return()=>{
-      mediaQuery.removeEventListener('change',handleMediaQuery)
+    if (!window.WebGLRenderingContext || !document.createElement('canvas').getContext('webgl')) {
+      alert("Your device does not support WebGL");
     }
-  },[])
+    mediaQuery.addEventListener('change', handleMediaQuery)
+    return () => {
+      mediaQuery.removeEventListener('change', handleMediaQuery)
+    }
+  }, [])
   return (
     <Canvas
-      frameloop='demand'
-      shadows
+      shadows={isMobile ? false : true}  // Disable shadows on mobile
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
     >
-      <Suspense fallback={<CanvasLoader />}>
-      <OrbitControls
+      <Suspense fallback={<CanvasLoader isMobile={isMobile} />}>
+        <OrbitControls
           autoRotate={false}
           enableZoom={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <Computers isMobile={isMobile}/>
+        <Computers isMobile={isMobile} />
       </Suspense>
 
       <Preload all />
