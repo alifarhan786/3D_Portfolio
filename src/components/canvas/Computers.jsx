@@ -1,55 +1,36 @@
-import React, { Suspense, useEffect, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { Loader, OrbitControls, Preload, useGLTF } from '@react-three/drei'
-import CanvasLoader from '../Loader'
+import React, { Suspense, useEffect, useState, lazy } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Preload } from '@react-three/drei';
+import CanvasLoader from '../Loader';
 
-
-const Computers = ({ isMobile }) => {
-  const computer = useGLTF("./desktop_pc/scene.gltf");
-  return (
-
-    <mesh>
-      <hemisphereLight intensity={5} groundColor='blue' />
-      <spotLight
-        position={[-20, 50, 10]}
-        angle={0.12}
-        penumbra={1}
-        intensity={2}  // Increase this
-        castShadow
-        shadow-mapSize={1024}
-      />
-      <pointLight intensity={2} />  // Increase this too
-      <ambientLight intensity={0.5} />
-      <primitive
-        object={computer.scene}
-        scale={isMobile ? 0.47 : 0.75}
-        position={isMobile ? [0, -2, -1.5] : [0, -3.45, -1.5]}
-        rotation={[-0.01, -0.2, -0.1]}
-      />
-    </mesh>
-
-  )
-}
+// Lazy load the Computers component
+const LazyComputers = lazy(() => import('./Computer')); // Adjust the import path as needed
 
 export const ComputersCanvas = () => {
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width:500px)")
-    setIsMobile(mediaQuery.matches)
+    const mediaQuery = window.matchMedia("(max-width:500px)");
+    setIsMobile(mediaQuery.matches);
+    
     const handleMediaQuery = (event) => {
       setIsMobile(event.matches);
-    }
+    };
+
+    // Check for WebGL support
     if (!window.WebGLRenderingContext || !document.createElement('canvas').getContext('webgl')) {
       alert("Your device does not support WebGL");
     }
-    mediaQuery.addEventListener('change', handleMediaQuery)
+
+    mediaQuery.addEventListener('change', handleMediaQuery);
     return () => {
-      mediaQuery.removeEventListener('change', handleMediaQuery)
-    }
-  }, [])
+      mediaQuery.removeEventListener('change', handleMediaQuery);
+    };
+  }, []);
+
   return (
     <Canvas
-      shadows={isMobile ? false : true}  // Disable shadows on mobile
+      shadows={!isMobile}  // Disable shadows on mobile
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
@@ -61,12 +42,11 @@ export const ComputersCanvas = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <Computers isMobile={isMobile} />
+        <LazyComputers isMobile={isMobile} />
       </Suspense>
-
       <Preload all />
     </Canvas>
-  )
-}
+  );
+};
 
-export default ComputersCanvas
+export default ComputersCanvas;
